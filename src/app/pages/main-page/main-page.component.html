@@ -1,0 +1,9 @@
+<div class="product__wrapper">
+    <div class="product__wrapper-content">
+        @for(product of products; track product.id) {
+            <app-product
+                [product]="product"
+            ></app-product>
+        }
+    </div>
+</div>

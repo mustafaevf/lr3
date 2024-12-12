@@ -1,0 +1,8 @@
+<div class="flex flex-col gap-3">
+    @for(product of products; track product.id) {
+        <div class="flex shadow-lg border">
+            {{product.title}}
+            {{product.price}}
+        </div>
+    }
+</div>

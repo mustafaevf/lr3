@@ -1,0 +1,12 @@
+@if(product) {
+    <a href='/products/{{product.id}}'> 
+        <div class="p-3 border-4 rounded flex flex-col cursor-pointer">
+            <div class="text-lg font-bold">
+                {{product.title}}
+            </div>
+            <div class="text-md">
+                {{product.price}} руб.
+            </div>
+        </div>
+    </a>
+}

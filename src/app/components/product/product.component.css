@@ -1,0 +1,15 @@
+.card {
+    border: 1px solid red;
+    border-radius: .25rem;
+    padding: 1rem;
+    box-shadow: 1rem;
+    text-align: center;
+    cursor: pointer;
+}
+.card:hover {
+    background: red;
+    color: #fff;
+    transition: background 1s;
+    transition: color .6s;
+    transform:translate(1rem, 1rem, 1rem);
+}

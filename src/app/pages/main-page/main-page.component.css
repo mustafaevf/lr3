@@ -1,0 +1,10 @@
+.product__wrapper {
+    max-width: 1200px;
+    margin: 2rem auto;
+    
+}
+.product__wrapper-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}
