@@ -1,32 +1,31 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../data/services/auth.service';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-register-page',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.css'
 })
 export class RegisterPageComponent {
-  form: any = {
-    first_name: '',
-    last_name: '',
-    login: '',
-    email: '', 
-    password: ''
-  };
+  registerForm: FormGroup;
 
   onSubmit() {
-    this.authService.register(this.form).subscribe({
+    if(this.registerForm.invalid) {
+      console.log(this.registerForm);
+      return;
+    }
+    this.authService.register(this.registerForm.value).subscribe({
       next: (response) => {
         console.log(response);
-        // const token = response.token;
-        // if (token) {
-        //   this.authService.setToken(token);
-        // }
-        // console.log('Успешный вход:', response);
+        const token = response.token;
+        console.log('Успешный вход:', response);
+        this.router.navigate(['/']);
       },
       error: (err) => {
         console.error('Ошибка регистрации:', err);
@@ -34,5 +33,13 @@ export class RegisterPageComponent {
     });
   }
 
-  constructor(private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService, private fb: FormBuilder) {
+    this.registerForm = this.fb.group({
+      first_name: ['', [Validators.required, Validators.minLength(3)]],
+      last_name: ['', [Validators.required, Validators.minLength(2)]],
+      login: ['', [Validators.required, Validators.minLength(5)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
 }

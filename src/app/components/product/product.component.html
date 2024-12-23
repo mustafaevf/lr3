@@ -1,7 +1,7 @@
 @if(product) {
     <a href='/products/{{product.id}}'> 
-        <div class="p-3 border-4 rounded flex flex-col cursor-pointer">
-            <div class="text-lg font-bold">
+        <div class="p-3 border rounded flex flex-col cursor-pointer hover:bg-gray-200 transition-all">
+            <div class="text-lg font-boldd overflow-auto">
                 {{product.title}}
             </div>
             <div class="text-md">
@@ -9,4 +9,6 @@
             </div>
         </div>
     </a>
+    <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    </table> -->
 }

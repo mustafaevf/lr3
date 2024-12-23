@@ -1,23 +1,24 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../../../data/services/product.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-create-page',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './product-create-page.component.html',
   styleUrl: './product-create-page.component.css'
 })
 export class ProductCreatePageComponent {
-  form: any = {
-    title: '',
-    price: ''
-  };
+  createProductForm: FormGroup;
 
   onSubmit() {
-    // console.log(this.form);
-    this.productService.createProduct(this.form.title, this.form.price).subscribe({
+    if(this.createProductForm.invalid) {
+      console.log(this.createProductForm);
+      return;
+    }
+    this.productService.createProduct(this.createProductForm.controls['title'].value, this.createProductForm.controls['price'].value).subscribe({
       next: (response) => {
         console.log(response);
         // const token = response.token;
@@ -32,5 +33,10 @@ export class ProductCreatePageComponent {
     });
   }
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private fb: FormBuilder) {
+    this.createProductForm = this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(5)]],
+      price: ['', [Validators.required]]
+    });
+  }
 }

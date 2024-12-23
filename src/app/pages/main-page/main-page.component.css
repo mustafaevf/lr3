@@ -8,3 +8,10 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
 }
+
+.mdc-data-table__table {
+    border-width: 1px;
+    border-radius: 0.25rem;
+    border-style: solid;
+    border-color: #e5e7eb;
+}

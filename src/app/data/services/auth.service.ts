@@ -6,7 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-
+  isAuth = false;
+  user = {
+    id: 0,
+    login: '',
+    role: '',
+  };
+  
   getToken(): string | null {
     if (typeof localStorage !== 'undefined') {
       return localStorage.getItem('token');
@@ -19,6 +25,7 @@ export class AuthService {
   }
 
   logout() {
+    this.isAuth = false;
     localStorage.removeItem('token');
   }
 

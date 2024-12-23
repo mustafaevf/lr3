@@ -1,77 +1,85 @@
 <div class="min-h-screen flex items-center justify-center bg-gray-100">
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
       <h2 class="text-2xl font-bold text-center mb-6">Регистрация</h2>
-      <form (ngSubmit)="onSubmit()"
-      >
-
+      <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
         <div class="mb-4">
-            <label for="login" class="block text-sm font-medium text-gray-700 mb-1">Логин</label>
-            <input 
-                type="text" 
-                id="login" 
-                name="login"
-                [(ngModel)]="form.login"
-                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                placeholder="Введите логин" 
-                required>
+          <label for="login" class="block text-sm font-medium text-gray-700 mb-1">Логин</label>
+          <input 
+            type="text" 
+            id="login" 
+            formControlName="login"
+            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+            placeholder="Введите логин" 
+            required>
+          <div *ngIf="registerForm.controls['login'].touched && registerForm.controls['login'].invalid">
+            <span *ngIf="registerForm.controls['login'].errors?.['required']" class="text-red-500">Имя пользователя обязательно.</span>
+            <span *ngIf="registerForm.controls['login'].errors?.['minlength']" class="text-red-500">Имя пользователя должно быть минимум {{ registerForm.controls['login'].errors?.['minlength'].requiredLength }} символа.</span>
+          </div>
         </div>
-
         <div class="mb-4">
-            <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">Имя</label>
-            <input 
-                type="text" 
-                id="first_name" 
-                name="first_name"
-                [(ngModel)]="form.first_name"
-                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                placeholder="Введите имя" 
-                required>
+          <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">Имя</label>
+          <input 
+            type="text" 
+            id="first_name" 
+            formControlName="first_name"
+            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+            placeholder="Введите имя" 
+            required>
+          <div *ngIf="registerForm.controls['first_name'].touched && registerForm.controls['first_name'].invalid">
+            <span *ngIf="registerForm.controls['first_name'].errors?.['required']" class="text-red-500">Имя обязательно.</span>
+            <span *ngIf="registerForm.controls['first_name'].errors?.['minlength']" class="text-red-500">Имя должно быть минимум {{ registerForm.controls['first_name'].errors?.['minlength'].requiredLength }} символа.</span>
+          </div>
         </div>
-
         <div class="mb-4">
-        <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">Фамилия</label>
-        <input 
+          <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">Фамилия</label>
+          <input 
             type="text" 
             id="last_name" 
-            name="last_name"
-            [(ngModel)]="form.last_name"
+            formControlName="last_name"
             class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
             placeholder="Введите фамилию" 
             required>
+          <div *ngIf="registerForm.controls['last_name'].touched && registerForm.controls['last_name'].invalid">
+            <span *ngIf="registerForm.controls['last_name'].errors?.['required']" class="text-red-500">Фамилия обязательна.</span>
+            <span *ngIf="registerForm.controls['last_name'].errors?.['minlength']" class="text-red-500">Фамилия должна быть минимум {{ registerForm.controls['last_name'].errors?.['minlength'].requiredLength }} символа.</span>
+          </div>
         </div>
-
         <div class="mb-4">
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Почта</label>
-            <input 
-                type="email" 
-                id="email" 
-                name="email"
-                [(ngModel)]="form.email"
-                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                placeholder="Введите почту" 
-                required>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Почта</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email"
+            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+            placeholder="Введите почту" 
+            required>
+          <div *ngIf="registerForm.controls['email'].touched && registerForm.controls['email'].invalid">
+            <span *ngIf="registerForm.controls['email'].errors?.['required']" class="text-red-500">Почта обязательна.</span>
+            <span *ngIf="registerForm.controls['email'].errors?.['email']" class="text-red-500">Почта должна быть корректной.</span>
+            <!-- <span *ngIf="registerForm.controls['email'].errors?.['minlength']" class="text-red-500">Фамилия должна быть минимум {{ registerForm.controls['last_name'].errors?.['minlength'].requiredLength }} символа.</span> -->
+          </div>
         </div>
-        
         <div class="mb-4">
           <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Пароль</label>
           <input 
             type="password" 
             id="password" 
-            name="password"
-            [(ngModel)]="form.password"
+            formControlName="password"
             class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
             placeholder="Введите пароль" 
             required>
+          <div *ngIf="registerForm.controls['password'].touched && registerForm.controls['password'].invalid">
+            <span *ngIf="registerForm.controls['password'].errors?.['required']" class="text-red-500">Пароль обязателен.</span>
+            <span *ngIf="registerForm.controls['password'].errors?.['minlength']" class="text-red-500">Пароль должен быть минимум {{ registerForm.controls['password'].errors?.['minlength'].requiredLength }} символа.</span>
+          </div> 
         </div>
-        
         <button 
           type="submit" 
           class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition">
           Создать аккаунт
         </button>
-      </form>
-      
-        <a href="/login" class="mt-4 text-center text-blue-500 hover:underline">Войти</a>
-      
+      </form>      
+      <a href="/login" class="mt-4 text-center text-blue-500 hover:underline">Войти</a>
+
     </div>
   </div>
